@@ -105,21 +105,7 @@ app.post('/', function(req, res, next) {
 			  });
 		    
 
-		    var newvalues = { $set: {longitude: req.body.longitude, latitude: req.body.latitude } };
-			collection.updateOne(query,newvalues, function(err, result) {
-				if (err) throw err;
-
-
-				if(result){
-					response = {success: true}
-				}else{
-					response = {success : false}
-				}
-				
-				res.send(response);
-
-				
-			});
+		   
 	
 
 		    
