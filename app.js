@@ -29,7 +29,7 @@ app.get('/', function (req, res,next) {
 		    //users = result;
 		    instance.close();
 		    res.json({
-	    		"users": users
+	    		"users": result
 	 	    }); 
 		    
 		  });
