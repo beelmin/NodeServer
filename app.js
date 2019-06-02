@@ -10,9 +10,11 @@ const port=process.env.PORT || 3000
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+/*
 var listOfUsers = [];
 var users = [];
 var conversations = [];
+*/
 
 app.get('/', function (req, res,next) {
 
@@ -58,17 +60,23 @@ app.get('/chat', function(req,res,next){
 	    console.log('connected')
 	    const collection = client.db("chat").collection("messages").find({}).toArray(function(err, result) {
 		    if (err) throw err;
-		    conversations = result;
+		    //conversations = result;
+		    instance.close();
+		    res.json({
+			"conversations": result
+		    });
+		    
 		  });
 	    
-	    client.close()
+	    //client.close()
 	    
 	  }
 	 });
-	
+	/*
 	res.json({
 		"conversations": conversations
 	});
+	*/
 
 });
 
@@ -115,7 +123,7 @@ app.post('/', function(req, res, next) {
 	
 
 		    
-		    client.close()
+		    instance.close()
 		    
 		    
 		  }
@@ -153,7 +161,7 @@ app.post('/', function(req, res, next) {
 			});
 
 		  }
-		  client.close();
+		  instance.close();
 });
 		
 
@@ -182,7 +190,7 @@ instance.connect((err, client) => {
     console.log('connected')
     const collection = client.db("chat").collection("messages")
     collection.insertOne(newMessage);
-    client.close()
+    instance.close()
     
   }
  });
