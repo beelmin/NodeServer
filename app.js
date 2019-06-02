@@ -26,17 +26,23 @@ app.get('/', function (req, res,next) {
 	    console.log('connected')
 	    const collection = client.db("chat").collection("users").find({}).toArray(function(err, result) {
 		    if (err) throw err;
-		    users = result;
+		    //users = result;
+		    instance.close();
+		    res.json({
+	    		"users": users
+	 	    }); 
+		    
 		  });
 	    
-	    client.close()
+	    //client.close()
 	    
 	  }
 	 });
-
+	/*
 	  res.json({
 	    "users": users
 	  }); 
+	*/
 });
 
 app.get('/chat', function(req,res,next){
