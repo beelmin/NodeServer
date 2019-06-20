@@ -86,10 +86,10 @@ app.post('/', function(req, res, next) {
 			    if (err) throw err;
 			    
 			    if(result.length == 0){
-			    	response = {success: true}
+			    	response = {success: false}
 			    }
 			    else{
-			    	response = {success: false}
+			    	response = {success: true}
 			    }
 			    res.send(response);
 			    
