@@ -144,7 +144,8 @@ app.post('/chat', function(req, res, next) {
   	
   var newMessage = {
   	sender: req.body.sender,
-  	message : req.body.message
+  	message : req.body.message,
+	time : req.body.time
   };
 
  
