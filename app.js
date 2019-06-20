@@ -10,11 +10,7 @@ const port=process.env.PORT || 3000
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-/*
-var listOfUsers = [];
-var users = [];
-var conversations = [];
-*/
+
 
 app.get('/', function (req, res,next) {
 
@@ -28,7 +24,7 @@ app.get('/', function (req, res,next) {
 	    console.log('connected')
 	    const collection = client.db("chat").collection("users").find({}).toArray(function(err, result) {
 		    if (err) throw err;
-		    //users = result;
+		    
 		    instance.close();
 		    res.json({
 	    		"users": result
@@ -36,15 +32,9 @@ app.get('/', function (req, res,next) {
 		    
 		  });
 	    
-	    //client.close()
-	    
 	  }
 	 });
-	/*
-	  res.json({
-	    "users": users
-	  }); 
-	*/
+	
 });
 
 app.get('/chat', function(req,res,next){
@@ -60,7 +50,7 @@ app.get('/chat', function(req,res,next){
 	    console.log('connected')
 	    const collection = client.db("chat").collection("messages").find({}).toArray(function(err, result) {
 		    if (err) throw err;
-		    //conversations = result;
+		   
 		    instance.close();
 		    res.json({
 			"conversations": result
@@ -68,15 +58,8 @@ app.get('/chat', function(req,res,next){
 		    
 		  });
 	    
-	    //client.close()
-	    
 	  }
 	 });
-	/*
-	res.json({
-		"conversations": conversations
-	});
-	*/
 
 });
 
@@ -103,29 +86,17 @@ app.post('/', function(req, res, next) {
 			    if (err) throw err;
 			    
 			    if(result.length == 0){
-			    	
-			    	res.send({
-				  		success: false
-				  	});
+			    	response = {success: true}
 			    }
 			    else{
-			    	
-			    	res.send({
-				  		success: true
-				  	});
-
-
+			    	response = {success: false}
 			    }
+			    res.send(response);
+			    
 			  });
-		    
-
-		   
-	
-
-		    
+		    		 
 		    instance.close()
-		    
-		    
+		        
 		  }
 		 });
 
@@ -171,15 +142,12 @@ app.post('/', function(req, res, next) {
 
 app.post('/chat', function(req, res, next) {
   	
-
   var newMessage = {
   	sender: req.body.sender,
   	message : req.body.message
   };
 
  
-
-
 const instance = new MongoClient(uri, { useNewUrlParser: true });
 instance.connect((err, client) => {
   if (err){
