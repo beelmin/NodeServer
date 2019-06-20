@@ -184,6 +184,7 @@ app.post('/chat', function(req, res, next) {
 
 			    instance.close();
 			    res.json({
+				"success" : true,
 				"conversations": result
 			    });
 
